@@ -1,0 +1,108 @@
+[
+  {
+    "PublisherId": 1,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 1,
+    "TitleId": 3
+  },
+  {
+    "PublisherId": 1,
+    "TitleId": 5
+  },
+  {
+    "PublisherId": 2,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 2,
+    "TitleId": 5
+  },
+  {
+    "PublisherId": 3,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 3,
+    "TitleId": 5
+  },
+  {
+    "PublisherId": 4,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 4,
+    "TitleId": 3
+  },
+  {
+    "PublisherId": 4,
+    "TitleId": 5
+  },
+  {
+    "PublisherId": 5,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 5,
+    "TitleId": 4
+  },
+  {
+    "PublisherId": 6,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 6,
+    "TitleId": 3
+  },
+  {
+    "PublisherId": 6,
+    "TitleId": 4
+  },
+  {
+    "PublisherId": 6,
+    "TitleId": 6
+  },
+  {
+    "PublisherId": 7,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 7,
+    "TitleId": 3
+  },
+  {
+    "PublisherId": 7,
+    "TitleId": 4
+  },
+  {
+    "PublisherId": 8,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 8,
+    "TitleId": 4
+  },
+  {
+    "PublisherId": 9,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 9,
+    "TitleId": 3
+  },
+  {
+    "PublisherId": 9,
+    "TitleId": 4
+  },
+  {
+    "PublisherId": 10,
+    "TitleId": 2
+  },
+  {
+    "PublisherId": 10,
+    "TitleId": 4
+  }
+]
+
+

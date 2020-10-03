@@ -1,0 +1,112 @@
+[
+  {
+    "FirstName": "Jib",
+    "MiddleName": "",
+    "LastName": "Baldove",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 5
+  },
+  {
+    "FirstName": "Dionisio",
+    "MiddleName": "",
+    "LastName": "Urlanda",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 6
+  },
+  {
+    "FirstName": "Tito",
+    "MiddleName": "",
+    "LastName": "Macaraeg",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 1
+  },
+  {
+    "FirstName": "Gregorio",
+    "MiddleName": "",
+    "LastName": "Erive",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 4
+  },
+  {
+    "FirstName": "Richard",
+    "MiddleName": "",
+    "LastName": "Asmeralde",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 2
+  },
+  {
+    "FirstName": "Aljhone",
+    "MiddleName": "",
+    "LastName": "Erive",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 3
+  },
+  {
+    "FirstName": "Gideon",
+    "MiddleName": "",
+    "LastName": "Asmeralde",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 7
+  },
+  {
+    "FirstName": "Rogh",
+    "MiddleName": "",
+    "LastName": "Sawangen",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 5
+  },
+  {
+    "FirstName": "Leonardo",
+    "MiddleName": "",
+    "LastName": "Edralin",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 1
+  },
+  {
+    "FirstName": "Ram",
+    "MiddleName": "",
+    "LastName": "Sawangen",
+    "BaptismDate": "2020-01-01",
+    "BirthDate": "2020-01-01",
+    "PhotoUrl": "",
+    "Gender": "Male",
+    "StatusId": 1,
+    "GroupId": 4
+  }
+]

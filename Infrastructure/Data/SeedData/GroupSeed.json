@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "Group 1",
+    "OverseerPublisherId": 3,
+    "AssistantPublisherId": 9
+  },
+  {
+    "Name": "Group 2",
+    "OverseerPublisherId": 5,
+    "AssistantPublisherId": 0
+  },
+  {
+    "Name": "Group 3",
+    "OverseerPublisherId": 6,
+    "AssistantPublisherId": 0
+  },
+  {
+    "Name": "Group 4",
+    "OverseerPublisherId": 10,
+    "AssistantPublisherId": 0
+  },
+  {
+    "Name": "Group 5",
+    "OverseerPublisherId": 1,
+    "AssistantPublisherId": 8
+  },
+  {
+    "Name": "Group 6",
+    "OverseerPublisherId": 2,
+    "AssistantPublisherId": 0
+  },
+  {
+    "Name": "Group 7",
+    "OverseerPublisherId": 7,
+    "AssistantPublisherId": 0
+  }
+]
