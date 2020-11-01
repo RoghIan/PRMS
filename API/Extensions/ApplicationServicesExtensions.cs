@@ -10,13 +10,11 @@ using System.Threading.Tasks;
 
 namespace API.Extensions
 {
-    public static  class ApplicationServicesExtensions
+    public static class ApplicationServicesExtensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-
-            services.AddScoped<ITitleRepository, TitleRepository>();
-            services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

@@ -7,6 +7,10 @@ namespace Core.Specifications
     {
         public PublisherWithGroupTitleStatusReport(PublisherSpecParams publisherParams)
             : base(x =>
+                (string.IsNullOrEmpty(publisherParams.Search) ||
+                 x.FirstName.ToLower().Contains(publisherParams.Search)) &&
+                (string.IsNullOrEmpty(publisherParams.Search) ||
+                 x.LastName.ToLower().Contains(publisherParams.Search)) &&
                 (!publisherParams.TitleId.HasValue ||
                  x.PublisherTitles.FirstOrDefault(pt => pt.TitleId == publisherParams.TitleId).TitleId ==
                  publisherParams.TitleId) &&
