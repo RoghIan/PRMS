@@ -1,12 +1,13 @@
-﻿using API.DTO;
+﻿using System.Collections.Generic;
+using API.DTO;
 using API.Errors;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,22 +18,29 @@ namespace API.Controllers
         private readonly IGenericRepository<Publisher> _publisherRepo;
         private readonly IMapper _mapper;
 
-        public PublisherController(IGenericRepository<Publisher> publisherRepo,
-                                    IMapper mapper)
+        public PublisherController(
+            IGenericRepository<Publisher> publisherRepo,
+            IMapper mapper)
         {
             _publisherRepo = publisherRepo;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<PublisherToReturnDto>>> GetPublishers()
+        public async Task<ActionResult<Pagination<PublisherToReturnDto>>> GetPublishers(
+            [FromQuery] PublisherSpecParams publisherParams)
         {
-            var spec = new PublisherWithGroupTitleStatusReport();
+            var spec = new PublisherWithGroupTitleStatusReport(publisherParams);
+            var countSpec = new PublisherWithFiltersForCountSpecification(publisherParams);
+
+            var totalItems = await _publisherRepo.CountAsync(countSpec);
+
             var publishers = await _publisherRepo.ListAsync(spec);
 
-            var publishersToReturnDto = publishers.Select(x => _mapper.Map<Publisher, PublisherToReturnDto>(x)).ToList();
+            var data = _mapper.Map<IReadOnlyList<Publisher>, IReadOnlyList<PublisherToReturnDto>>(publishers);
 
-            return publishersToReturnDto;
+            return Ok(new Pagination<PublisherToReturnDto>(publisherParams.PageSize,
+                publisherParams.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]

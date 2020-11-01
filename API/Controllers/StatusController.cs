@@ -35,5 +35,16 @@ namespace API.Controllers
 
             return statusToReturnDto;
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PropertyDto>> Status(int id)
+        {
+            var spec = new StatusWithPublishers(id);
+            var status = await _statusRepository.GetEntityWithSpec(spec);
+
+            var statusToReturnDto = _mapper.Map<Status, PropertyDto>(status);
+
+            return statusToReturnDto;
+        }
     }
 }

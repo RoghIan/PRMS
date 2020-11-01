@@ -20,10 +20,7 @@ namespace Infrastructure.Data
                     var groupData = File.ReadAllText("../Infrastructure/Data/SeedData/GroupSeed.json");
                     var groups = JsonConvert.DeserializeObject<List<Group>>(groupData);
 
-                    foreach (var group in groups)
-                    {
-                        await context.Groups.AddAsync(group);
-                    }
+                    foreach (var group in groups) await context.Groups.AddAsync(@group);
 
                     await context.SaveChangesAsync();
                 }
@@ -34,10 +31,7 @@ namespace Infrastructure.Data
 
                     var statuses = JsonConvert.DeserializeObject<List<Status>>(statusData);
 
-                    foreach (var status in statuses)
-                    {
-                        await context.Statuses.AddAsync(status);
-                    }
+                    foreach (var status in statuses) await context.Statuses.AddAsync(status);
 
                     await context.SaveChangesAsync();
                 }
@@ -48,10 +42,7 @@ namespace Infrastructure.Data
 
                     var titles = JsonConvert.DeserializeObject<List<Title>>(titlesData);
 
-                    foreach (var title in titles)
-                    {
-                        await context.Titles.AddAsync(title);
-                    }
+                    foreach (var title in titles) await context.Titles.AddAsync(title);
 
                     await context.SaveChangesAsync();
                 }
@@ -63,24 +54,20 @@ namespace Infrastructure.Data
 
                     var publishers = JsonConvert.DeserializeObject<List<Publisher>>(publishersData);
 
-                    foreach (var publisher in publishers)
-                    {
-                        await context.Publishers.AddAsync(publisher);
-                    }
+                    foreach (var publisher in publishers) await context.Publishers.AddAsync(publisher);
 
                     await context.SaveChangesAsync();
                 }
 
                 if (!context.PublisherTitles.Any())
                 {
-                    var publisherTitleData = File.ReadAllText("../Infrastructure/Data/SeedData/PublisherTitleSeed.json");
+                    var publisherTitleData =
+                        File.ReadAllText("../Infrastructure/Data/SeedData/PublisherTitleSeed.json");
 
                     var publishersTitles = JsonConvert.DeserializeObject<List<PublisherTitle>>(publisherTitleData);
 
                     foreach (var publisherTitle in publishersTitles)
-                    {
                         await context.PublisherTitles.AddAsync(publisherTitle);
-                    }
 
                     await context.SaveChangesAsync();
                 }

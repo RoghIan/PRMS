@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace API.Helpers
 {
-    public class PublisherUrlResolver : IValueResolver<Publisher, PublisherToReturnDto, string>
+    public class PublisherUrlResolver : IValueResolver<Publisher, PublisherToReturnDto, string>,
+        IValueResolver<Publisher, FlatPublisherToReturnDto, string>
     {
         private readonly IConfiguration _config;
 
@@ -18,12 +19,18 @@ namespace API.Helpers
             _config = config;
         }
 
-        public string Resolve(Publisher source, PublisherToReturnDto destination, string destMember, ResolutionContext context)
+        public string Resolve(Publisher source, PublisherToReturnDto destination, string destMember,
+            ResolutionContext context)
         {
-            if (!string.IsNullOrEmpty(source.PhotoUrl))
-            {
-                return _config["ApiUrl"] + source.PhotoUrl;
-            }
+            if (!string.IsNullOrEmpty(source.PhotoUrl)) return _config["ApiUrl"] + source.PhotoUrl;
+
+            return null;
+        }
+
+        public string Resolve(Publisher source, FlatPublisherToReturnDto destination, string destMember,
+            ResolutionContext context)
+        {
+            if (!string.IsNullOrEmpty(source.PhotoUrl)) return _config["ApiUrl"] + source.PhotoUrl;
 
             return null;
         }

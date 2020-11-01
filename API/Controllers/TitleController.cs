@@ -35,7 +35,7 @@ namespace API.Controllers
 
             return Ok(titlesToReturnDto);
         }
-
+    
         [HttpGet("{id}")]
         public async Task<ActionResult<Title>> Title(int id)
         {

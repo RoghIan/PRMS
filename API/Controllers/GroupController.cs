@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTO;
+using API.Errors;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -12,9 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class GroupController : ControllerBase
+    public class GroupController : BaseApiController
     {
         private readonly IGenericRepository<Group> _groupRepository;
         private readonly IMapper _mapper;
@@ -28,10 +27,23 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<PropertyDto>>> Groups()
         {
-            var spec = new GroupWithPublishers();
+            var spec = new GroupWithPublishersSpecification();
             var groups = await _groupRepository.ListAsync(spec);
 
             var groupToReturnDto = groups.Select(g => _mapper.Map<Group, PropertyDto>(g)).ToList();
+
+            return groupToReturnDto;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PropertyDto>> Group(int id)
+        {
+            var spec = new GroupWithPublishersSpecification(id);
+            var group = await _groupRepository.GetEntityWithSpec(spec);
+
+            var groupToReturnDto = _mapper.Map<Group, PropertyDto>(group);
+
+            if (group == null) return NotFound(new ApiResponse(404));
 
             return groupToReturnDto;
         }
