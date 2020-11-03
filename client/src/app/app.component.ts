@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { IPagination } from './shared/models/pagination';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'Publisher management system';
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.http.get('https://localhost:44375/api/publisher').subscribe(
-      (response: any) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+  ngOnInit(): void {}
 }

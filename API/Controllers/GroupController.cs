@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.DTO;
 using API.Errors;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -25,14 +26,18 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<PropertyDto>>> Groups()
+        public async Task<ActionResult<Pagination<PropertyDto>>> Groups([FromQuery] GroupSpecParams groupSpecParams)
         {
-            var spec = new GroupWithPublishersSpecification();
+            var spec = new GroupWithPublishersSpecification(groupSpecParams);
             var groups = await _groupRepository.ListAsync(spec);
 
-            var groupToReturnDto = groups.Select(g => _mapper.Map<Group, PropertyDto>(g)).ToList();
+            var countSpec = new GroupWithFiltersForCountSpecification(groupSpecParams);
+            var totalItems = await _groupRepository.CountAsync(countSpec);
 
-            return groupToReturnDto;
+            var data = _mapper.Map<IReadOnlyList<Group>, IReadOnlyList<PropertyDto>>(groups);
+
+            return Ok(new Pagination<PropertyDto>(groupSpecParams.PageSize,
+                groupSpecParams.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]

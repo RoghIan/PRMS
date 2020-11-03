@@ -16,14 +16,22 @@ namespace API.Controllers
     public class PublisherController : BaseApiController
     {
         private readonly IGenericRepository<Publisher> _publisherRepo;
+        private readonly IGenericRepository<Group> _groupRepo;
+        private readonly IGenericRepository<Title> _titleRepo;
+        private readonly IGenericRepository<Status> _statusRepo;
         private readonly IMapper _mapper;
 
         public PublisherController(
             IGenericRepository<Publisher> publisherRepo,
-            IMapper mapper)
+            IMapper mapper, IGenericRepository<Group> groupRepo,
+            IGenericRepository<Title> titleRepo,
+            IGenericRepository<Status> statusRepo)
         {
             _publisherRepo = publisherRepo;
             _mapper = mapper;
+            _groupRepo = groupRepo;
+            _titleRepo = titleRepo;
+            _statusRepo = statusRepo;
         }
 
         [HttpGet]
@@ -54,6 +62,24 @@ namespace API.Controllers
             if (publisher == null) return NotFound(new ApiResponse(404));
 
             return _mapper.Map<Publisher, PublisherToReturnDto>(publisher);
+        }
+
+        [HttpGet("titles")]
+        public async Task<ActionResult<IReadOnlyList<Title>>> GetPublisherTitles()
+        {
+            return Ok(await _titleRepo.ListAllAsync());
+        }
+
+        [HttpGet("groups")]
+        public async Task<ActionResult<IReadOnlyList<Group>>> GetPublisherGroups()
+        {
+            return Ok(await _groupRepo.ListAllAsync());
+        }
+
+        [HttpGet("statuses")]
+        public async Task<ActionResult<IReadOnlyList<Status>>> GetPublisherStatus()
+        {
+            return Ok(await _statusRepo.ListAllAsync());
         }
     }
 }

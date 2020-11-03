@@ -8,8 +8,7 @@ namespace Core.Specifications
         public PublisherWithGroupTitleStatusReport(PublisherSpecParams publisherParams)
             : base(x =>
                 (string.IsNullOrEmpty(publisherParams.Search) ||
-                 x.FirstName.ToLower().Contains(publisherParams.Search)) &&
-                (string.IsNullOrEmpty(publisherParams.Search) ||
+                 x.FirstName.ToLower().Contains(publisherParams.Search) ||
                  x.LastName.ToLower().Contains(publisherParams.Search)) &&
                 (!publisherParams.TitleId.HasValue ||
                  x.PublisherTitles.FirstOrDefault(pt => pt.TitleId == publisherParams.TitleId).TitleId ==
@@ -29,11 +28,11 @@ namespace Core.Specifications
             if (!string.IsNullOrEmpty(publisherParams.Sort))
                 switch (publisherParams.Sort)
                 {
-                    case "titleAsc":
-                        AddOrderBy(t => t.PublisherTitles.Select(pt => pt.Title.Name));
+                    case "lastNameAsc":
+                        AddOrderBy(n => n.LastName);
                         break;
-                    case "titleDesc":
-                        AddOrderByDescending(t => t.PublisherTitles.Select(pt => pt.Title.Name));
+                    case "lastNameDesc":
+                        AddOrderByDescending(n => n.LastName);
                         break;
                     case "groupAsc":
                         AddOrderBy(g => g.Group.Name);

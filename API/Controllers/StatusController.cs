@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTO;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -26,14 +27,19 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<PropertyDto>>> Statuses()
+        public async Task<ActionResult<Pagination<PropertyDto>>> Statuses(
+            [FromQuery] StatusSpecParams statusSpecParams)
         {
             var spec = new StatusWithPublishers();
             var statuses = await _statusRepository.ListAsync(spec);
 
-            var statusToReturnDto = statuses.Select(s => _mapper.Map<Status, PropertyDto>(s)).ToList();
+            var countSpec = new StatusWithFiltersForCountSpecification(statusSpecParams);
+            var totalItems = await _statusRepository.CountAsync(countSpec);
 
-            return statusToReturnDto;
+            var data = _mapper.Map<IReadOnlyList<Status>, IReadOnlyList<PropertyDto>>(statuses);
+
+            return Ok(new Pagination<PropertyDto>(statusSpecParams.PageSize,
+                statusSpecParams.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]

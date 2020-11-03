@@ -8,7 +8,7 @@ namespace Core.Specifications
 {
     public class GroupWithPublishersSpecification : BaseSpecification<Group>
     {
-        public GroupWithPublishersSpecification()
+        public GroupWithPublishersSpecification(GroupSpecParams groupSpecParams) : base()
         {
             AddInclude(x => x.Publishers);
         }
