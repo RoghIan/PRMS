@@ -1,4 +1,5 @@
 ﻿using API.DTO;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -6,9 +7,7 @@ using Core.Specifications;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using API.Helpers;
 
 namespace API.Controllers
 {
