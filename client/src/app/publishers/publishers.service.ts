@@ -5,11 +5,12 @@ import { IDictionary } from '../shared/models/dictionary';
 import { IPagination } from '../shared/models/pagination';
 import { map } from 'rxjs/operators';
 import { PublisherParams } from '../shared/models/publisherParams';
+import { IPublisher } from '../shared/models/publisher';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AdminService {
+export class PublishersService {
   private baseUrl = 'https://localhost:44375/api/';
   constructor(private http: HttpClient) {}
 
@@ -42,6 +43,10 @@ export class AdminService {
         params,
       })
       .pipe(map((response) => response.body));
+  }
+
+  getPublisher(id: number): Observable<IPublisher> {
+    return this.http.get<IPublisher>(this.baseUrl + 'publisher/' + id);
   }
 
   getGroups(): Observable<IDictionary[]> {

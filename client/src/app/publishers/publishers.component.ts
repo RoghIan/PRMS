@@ -2,14 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IDictionary } from '../shared/models/dictionary';
 import { IPublisher } from '../shared/models/publisher';
 import { PublisherParams } from '../shared/models/publisherParams';
-import { AdminService } from './admin.service';
+import { PublishersService } from './publishers.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'],
+  selector: 'app-publishers',
+  templateUrl: './publishers.component.html',
+  styleUrls: ['./publishers.component.css'],
 })
-export class AdminComponent implements OnInit {
+export class PublishersComponent implements OnInit {
   @ViewChild('search') searchTerm: ElementRef;
   publishers: IPublisher[];
   statuses: IDictionary[];
@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
     { name: 'status desc', value: 'statusDesc' },
   ];
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: PublishersService) {}
 
   ngOnInit(): void {
     this.getPublishers();

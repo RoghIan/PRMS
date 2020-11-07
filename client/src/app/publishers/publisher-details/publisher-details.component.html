@@ -1,0 +1,13 @@
+<div class="row" *ngIf="publisher">
+  <div class="col-6">
+    <img
+      src="/assets/images/no-picture.jpg"
+      alt="{{ publisher.firstName }}"
+      class="img-fluid w-100"
+    />
+  </div>
+  <div class="col-6">
+    <h3>{{ publisher.firstName }}</h3>
+    <p>{{ publisher.lastName }}</p>
+  </div>
+</div>

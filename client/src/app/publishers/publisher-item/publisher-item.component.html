@@ -5,14 +5,20 @@
     class="img-fluid bg-info"
   />
   <div class="card-body d-flex flex-column">
-    <a href="#">
+    <a routerLink="/admin/{{ publisher.id }}">
       <h6 class="text-uppercase">
-        {{ publisher.firstName + " " + publisher.lastName }}
+        {{ publisher.lastName + " " + publisher.firstName }}
       </h6>
     </a>
 
     <div class="btn-group mt-auto">
-      <button type="button" class="btn btn-outline-secondary">View</button>
+      <button
+        routerLink="/publisher/{{ publisher.id }}"
+        type="button"
+        class="btn btn-outline-secondary"
+      >
+        View
+      </button>
       <button type="button" class="btn btn-outline-secondary">Edit</button>
     </div>
     <small class="text-muted">9 mins</small>

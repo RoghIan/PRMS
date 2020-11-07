@@ -3,10 +3,10 @@ import { IPublisher } from 'src/app/shared/models/publisher';
 
 @Component({
   selector: 'app-publisher',
-  templateUrl: './publisher.component.html',
-  styleUrls: ['./publisher.component.css'],
+  templateUrl: './publisher-item.component.html',
+  styleUrls: ['./publisher-item.component.css'],
 })
-export class PublisherComponent implements OnInit {
+export class PublisherItemComponent implements OnInit {
   @Input() publisher: IPublisher;
   constructor() {}
 
