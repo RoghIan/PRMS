@@ -1,9 +1,22 @@
 <div class="card h-100 box-shadow">
-  <img
-    src="{{ publisher.photoUrl }}"
-    alt="{{ publisher.firstName }}"
-    class="img-fluid bg-info"
-  />
+  <div class="image position-relative" style="cursor: pointer">
+    <img
+      src="{{ publisher.photoUrl }}"
+      alt="{{ publisher.firstName }}"
+      class="img-fluid bg-info"
+    />
+    <div class="d-flex align-items-center justify-content-center hover-overlay">
+      <button
+        routerLink="/publishers/{{ publisher.id }}"
+        type="button"
+        class="btn btn-primary"
+      >
+        View
+      </button>
+      <button type="button" class="btn btn-primary">Edit</button>
+    </div>
+  </div>
+
   <div class="card-body d-flex flex-column">
     <a routerLink="/admin/{{ publisher.id }}">
       <h6 class="text-uppercase">
@@ -11,16 +24,6 @@
       </h6>
     </a>
 
-    <div class="btn-group mt-auto">
-      <button
-        routerLink="/publisher/{{ publisher.id }}"
-        type="button"
-        class="btn btn-outline-secondary"
-      >
-        View
-      </button>
-      <button type="button" class="btn btn-outline-secondary">Edit</button>
-    </div>
     <small class="text-muted">9 mins</small>
   </div>
 </div>

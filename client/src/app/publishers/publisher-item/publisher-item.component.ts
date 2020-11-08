@@ -4,7 +4,7 @@ import { IPublisher } from 'src/app/shared/models/publisher';
 @Component({
   selector: 'app-publisher',
   templateUrl: './publisher-item.component.html',
-  styleUrls: ['./publisher-item.component.css'],
+  styleUrls: ['./publisher-item.component.scss'],
 })
 export class PublisherItemComponent implements OnInit {
   @Input() publisher: IPublisher;

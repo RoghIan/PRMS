@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPublisher } from 'src/app/shared/models/publisher';
+import { BreadcrumbService } from 'xng-breadcrumb';
 import { PublishersService } from '../publishers.service';
 
 @Component({
@@ -13,8 +14,11 @@ export class PublisherDetailsComponent implements OnInit {
 
   constructor(
     private adminService: PublishersService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private bcService: BreadcrumbService
+  ) {
+    this.bcService.set('@publisherDetails', '');
+  }
 
   ngOnInit(): void {
     this.loadPublisher();
@@ -26,6 +30,10 @@ export class PublisherDetailsComponent implements OnInit {
       .subscribe(
         (publisher) => {
           this.publisher = publisher;
+          this.bcService.set(
+            '@publisherDetails',
+            `${publisher.lastName} ${publisher.firstName}`
+          );
         },
         (error) => {
           console.log(error);

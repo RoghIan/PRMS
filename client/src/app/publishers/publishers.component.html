@@ -1,61 +1,66 @@
-<div class="container">
+<div class="container mt-3">
   <div class="row">
     <section class="col-3">
-      <h5 class="text-warning ml-3">Sort</h5>
-      <select
-        class="custom-select mb-3"
-        (change)="onSortSelected($event.target.value)"
-      >
-        <option *ngFor="let sort of sortOptions" [value]="sort.value">
-          {{ sort.name }}
-        </option>
-      </select>
+      <ng-container *ngIf="groups && statuses && titles">
+        <h5 class="text-warning ml-3 mt-4 mb-3">Sort</h5>
+        <select
+          class="custom-select mb-4"
+          (change)="onSortSelected($event.target.value)"
+        >
+          <option *ngFor="let sort of sortOptions" [value]="sort.value">
+            {{ sort.name }}
+          </option>
+        </select>
 
-      <h5 class="text-warning ml-3">Groups</h5>
-      <ul class="list-group my-3">
-        <li
-          class="list-group-item"
-          *ngFor="let group of groups"
-          [class.active]="group.id === this.publisherParams.groupId"
-          [value]="group.id"
-          (click)="onGroupSelected(group.id)"
-        >
-          {{ group.name }}
-        </li>
-      </ul>
-      <h5 class="text-warning ml-3">Titles</h5>
-      <ul class="list-group my-3">
-        <li
-          class="list-group-item"
-          *ngFor="let title of titles"
-          [class.active]="title.id === this.publisherParams.titleId"
-          [value]="title.id"
-          (click)="onTitleSelected(title.id)"
-        >
-          {{ title.name }}
-        </li>
-      </ul>
-      <h5 class="text-warning ml-3">Status</h5>
-      <ul class="list-group my-3">
-        <li
-          class="list-group-item"
-          *ngFor="let status of statuses"
-          [class.active]="status.id === this.publisherParams.statusId"
-          [value]="status.id"
-          (click)="onStatusSelected(status.id)"
-        >
-          {{ status.name }}
-        </li>
-      </ul>
+        <h5 class="text-warning ml-3">Groups</h5>
+        <ul class="list-group my-3">
+          <li
+            class="list-group-item"
+            *ngFor="let group of groups"
+            [class.active]="group.id === this.publisherParams.groupId"
+            [value]="group.id"
+            (click)="onGroupSelected(group.id)"
+          >
+            {{ group.name }}
+          </li>
+        </ul>
+        <h5 class="text-warning ml-3">Titles</h5>
+        <ul class="list-group my-3">
+          <li
+            class="list-group-item"
+            *ngFor="let title of titles"
+            [class.active]="title.id === this.publisherParams.titleId"
+            [value]="title.id"
+            (click)="onTitleSelected(title.id)"
+          >
+            {{ title.name }}
+          </li>
+        </ul>
+        <h5 class="text-warning ml-3">Status</h5>
+        <ul class="list-group my-3">
+          <li
+            class="list-group-item"
+            *ngFor="let status of statuses"
+            [class.active]="status.id === this.publisherParams.statusId"
+            [value]="status.id"
+            (click)="onStatusSelected(status.id)"
+          >
+            {{ status.name }}
+          </li>
+        </ul>
+      </ng-container>
     </section>
     <section class="col-9">
-      <div class="d-flex justify-content-between align-items-center pb-2">
+      <div
+        class="d-flex justify-content-between align-items-center pb-2"
+        *ngIf="publishers"
+      >
         <app-paging-header
           [totalCount]="totalCount"
           [pageSize]="this.publisherParams.pageSize"
           [pageNumber]="this.publisherParams.pageNumber"
         ></app-paging-header>
-        <div class="form-inline mt-2">
+        <div class="form-inline">
           <input
             type="text"
             class="form-control mr-2"
