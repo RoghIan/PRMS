@@ -2,6 +2,7 @@
 using API.Extensions;
 using AutoMapper;
 using Core.Entities;
+using Core.Entities.Identity;
 using System.Linq;
 
 namespace API.Helpers
@@ -19,14 +20,17 @@ namespace API.Helpers
                 .ForMember(d => d.Group, s => s.MapFrom(x => x.Group.Name))
                 .ForMember(d => d.Age, s => s.MapFrom(x => x.BaptismDate.Age()))
                 .ForMember(d => d.PhotoUrl, s => s.MapFrom<PublisherUrlResolver>());
+
             CreateMap<Publisher, FlatPublisherToReturnDto>()
                 .ForMember(d => d.Group, s => s.MapFrom(x => x.Group.Name))
                 .ForMember(d => d.Age, s => s.MapFrom(x => x.BaptismDate.Age()))
                 .ForMember(d => d.PhotoUrl, s => s.MapFrom<PublisherUrlResolver>());
+
             CreateMap<Report, ReportToReturnDto>();
             CreateMap<Group, PropertyDto>();
             CreateMap<Status, PropertyDto>();
             CreateMap<Title, PropertyDto>();
+            CreateMap<Address, UserAddressDto>().ReverseMap();
         }
     }
 }
