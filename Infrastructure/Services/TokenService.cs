@@ -29,7 +29,7 @@ namespace Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.GivenName, user.DisplayName)
             };
 
-            var creds = new SigningCredentials(_key, SecurityAlgorithms.Aes256CbcHmacSha512);
+            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

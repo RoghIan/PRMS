@@ -37,7 +37,7 @@ namespace API
 
             services.AddDbContext<AppIdentityDbContext>(x =>
             {
-                x.UseSqlServer(_configuration.GetConnectionString("IdentityConntection"));
+                x.UseSqlServer(_configuration.GetConnectionString("IdentityConnection"));
             });
 
             services.AddSingleton<IConnectionMultiplexer>(c =>
