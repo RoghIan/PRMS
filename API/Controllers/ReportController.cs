@@ -63,14 +63,33 @@ namespace API.Controllers
 
         // PUT api/<ReportController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Report>> Put(int reportId, [FromBody] Report newReport)
         {
+            var spec = new ReportWithPublisherSpecification(reportId);
+            var report = await _unitOfWork.Repository<Report>().GetEntityWithSpec(spec);
+
+            if (report != null)
+            {
+                report = newReport;
+            }
+            
+            _unitOfWork.Repository<Report>().Update(report);
+            var result = await _unitOfWork.Complete();
+
+            return result <= 0 ? null : report;
         }
 
         // DELETE api/<ReportController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<bool>> Delete(int id)
         {
+            var spec = new ReportWithPublisherSpecification(id);
+            var report = await _unitOfWork.Repository<Report>().GetEntityWithSpec(spec);
+            
+            _unitOfWork.Repository<Report>().Delete(report);
+            var result = await _unitOfWork.Complete();
+
+            return result <= 0 ;
         }
     }
 }
