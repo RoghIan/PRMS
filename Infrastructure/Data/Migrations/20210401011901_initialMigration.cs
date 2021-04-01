@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -135,7 +135,7 @@ namespace Infrastructure.Data.Migrations
                     Hours = table.Column<int>(nullable: false),
                     ReturnVisits = table.Column<int>(nullable: false),
                     BibleStudies = table.Column<int>(nullable: false),
-                    Remarks = table.Column<int>(nullable: false),
+                    Remarks = table.Column<string>(nullable: true),
                     TitleName = table.Column<string>(nullable: true),
                     GroupName = table.Column<string>(nullable: true),
                     Auxiliary = table.Column<bool>(nullable: false),
