@@ -15,13 +15,13 @@ namespace API.Controllers
 {
     public class ReportController : BaseApiController
     {
-        private readonly IGenericRepository<Report> _reportRepo;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ReportController(IGenericRepository<Report> reportRepo, IMapper mapper)
+        public ReportController(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _reportRepo = reportRepo;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/<ReportController>
@@ -30,8 +30,8 @@ namespace API.Controllers
         {
             var spec = new ReportWithPublisherSpecification(specParams);
 
-            var reports = await _reportRepo.ListAsync(spec);
-            var totalItems = await _reportRepo.CountAsync(spec);
+            var reports = await _unitOfWork.Repository<Report>().ListAsync(spec);
+            var totalItems = await _unitOfWork.Repository<Report>().CountAsync(spec);
 
             var data = _mapper.Map<IReadOnlyList<Report>, IReadOnlyList<ReportToReturnDto>>(reports);
 
@@ -44,7 +44,7 @@ namespace API.Controllers
         public async Task<ActionResult<ReportToReturnDto>> Get(int id)
         {
             var spec = new ReportWithPublisherSpecification(id);
-            var report = await _reportRepo.GetEntityWithSpec(spec);
+            var report = await _unitOfWork.Repository<Report>().GetEntityWithSpec(spec);
 
             if (report == null) return NotFound(new ApiResponse(404));
 
@@ -53,8 +53,12 @@ namespace API.Controllers
 
         // POST api/<ReportController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Report>> Post([FromBody] Report report)
         {
+            _unitOfWork.Repository<Report>().Add(report);
+            var result = await _unitOfWork.Complete();
+
+            return result <= 0 ? null : report;
         }
 
         // PUT api/<ReportController>/5

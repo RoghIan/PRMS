@@ -10,7 +10,7 @@ namespace Core.Entities
         public int Hours { get; set; }
         public int ReturnVisits { get; set; }
         public int BibleStudies { get; set; }
-        public int Remarks { get; set; }
+        public string Remarks { get; set; }
         public string TitleName { get; set; }
         public string GroupName { get; set; }
         public bool Auxiliary { get; set; }
