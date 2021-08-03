@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using API.DTO;
 using API.Errors;
 using API.Helpers;
@@ -8,7 +9,6 @@ using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -17,21 +17,21 @@ namespace API.Controllers
     {
         private readonly IGenericRepository<Publisher> _publisherRepo;
         private readonly IGenericRepository<Group> _groupRepo;
-        private readonly IGenericRepository<Title> _titleRepo;
-        private readonly IGenericRepository<Status> _statusRepo;
+        //private readonly IGenericRepository<Appointed> _titleRepo;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public PublisherController(
             IGenericRepository<Publisher> publisherRepo,
             IMapper mapper, IGenericRepository<Group> groupRepo,
-            IGenericRepository<Title> titleRepo,
-            IGenericRepository<Status> statusRepo)
+            //IGenericRepository<Appointed> titleRepo,
+            IUnitOfWork unitOfWork)
         {
             _publisherRepo = publisherRepo;
             _mapper = mapper;
             _groupRepo = groupRepo;
-            _titleRepo = titleRepo;
-            _statusRepo = statusRepo;
+            //_titleRepo = titleRepo;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -63,23 +63,61 @@ namespace API.Controllers
 
             return _mapper.Map<Publisher, PublisherToReturnDto>(publisher);
         }
-
-        [HttpGet("titles")]
-        public async Task<ActionResult<IReadOnlyList<Title>>> GetPublisherTitles()
+        
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<Publisher>> Put(int id, [FromBody] Publisher newPublisher)
         {
-            return Ok(await _titleRepo.ListAllAsync());
+            var spec = new PublisherWithGroupTitleStatusReport(id);
+            //var publisher = await _unitOfWork.Repository<Publisher>().GetEntityWithSpec(spec);
+
+            var pubAppointees = await _unitOfWork.Repository<AppointedPublisher>().BasicListAsync(x => x.PublisherId == id);
+            
+             //remove titles
+             foreach (var prevAppointee in pubAppointees)
+             {
+                 if (newPublisher.AppointedPublishers.Any(x => x.AppointedId == prevAppointee.AppointedId)) continue;
+                 
+                 var titleToRemove = await _unitOfWork.Repository<AppointedPublisher>()
+                     .BasicGetEntityWithSpec(x => x.AppointedId == prevAppointee.AppointedId && x.PublisherId == prevAppointee.PublisherId);
+                 
+                 if(titleToRemove == null) continue;
+                 
+                 _unitOfWork.Repository<AppointedPublisher>().Delete(titleToRemove);
+             }
+            
+             //update and insert appointed
+             foreach (var newAppointed in newPublisher.AppointedPublishers)
+             {
+                 var existingTitle = await _unitOfWork.Repository<AppointedPublisher>()
+                     .BasicGetEntityWithSpec(x => x.PublisherId == id && x.AppointedId == newAppointed.AppointedId);
+            
+                 if (existingTitle != null)
+                 {
+                     _unitOfWork.Repository<AppointedPublisher>().Update(newAppointed);
+                 }
+                 else
+                 {
+                     _unitOfWork.Repository<AppointedPublisher>().Add(newAppointed);
+                 }
+             }
+
+            // if (publisher != null)
+            // {
+            //     publisher = newPublisher;
+            // }
+            
+            _unitOfWork.Repository<Publisher>().Update(newPublisher);
+            
+            var result = await _unitOfWork.Complete();
+
+            return result <= 0 ? null : newPublisher;
         }
+        
 
         [HttpGet("groups")]
         public async Task<ActionResult<IReadOnlyList<Group>>> GetPublisherGroups()
         {
             return Ok(await _groupRepo.ListAllAsync());
-        }
-
-        [HttpGet("statuses")]
-        public async Task<ActionResult<IReadOnlyList<Status>>> GetPublisherStatus()
-        {
-            return Ok(await _statusRepo.ListAllAsync());
         }
     }
 }

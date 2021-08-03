@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Data.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210401011901_initialMigration")]
-    partial class initialMigration
+    [Migration("20210426135031_Add_Audit_Logs")]
+    partial class Add_Audit_Logs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,82 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ActivityLogs");
+                });
+
+            modelBuilder.Entity("Core.Entities.Appointed", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointed");
+                });
+
+            modelBuilder.Entity("Core.Entities.AppointedPublisher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppointedId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PublisherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointedId");
+
+                    b.HasIndex("PublisherId");
+
+                    b.ToTable("AppointedPublishers");
+                });
+
+            modelBuilder.Entity("Core.Entities.Audit.Audit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AffectedColumns")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrimaryKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TableName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditLogs");
                 });
 
             modelBuilder.Entity("Core.Entities.Group", b =>
@@ -109,21 +185,6 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("Core.Entities.PublisherTitle", b =>
-                {
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TitleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PublisherId", "TitleId");
-
-                    b.HasIndex("TitleId");
-
-                    b.ToTable("PublisherTitles");
-                });
-
             modelBuilder.Entity("Core.Entities.Report", b =>
                 {
                     b.Property<int>("Id")
@@ -140,8 +201,8 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("GroupName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Hours")
-                        .HasColumnType("int");
+                    b.Property<double>("Hours")
+                        .HasColumnType("float");
 
                     b.Property<int>("Placements")
                         .HasColumnType("int");
@@ -189,22 +250,19 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Statuses");
                 });
 
-            modelBuilder.Entity("Core.Entities.Title", b =>
+            modelBuilder.Entity("Core.Entities.AppointedPublisher", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasOne("Core.Entities.Appointed", "Appointed")
+                        .WithMany("AppointedPublishers")
+                        .HasForeignKey("AppointedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Titles");
+                    b.HasOne("Core.Entities.Publisher", "Publisher")
+                        .WithMany()
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Entities.Publisher", b =>
@@ -218,21 +276,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasOne("Core.Entities.Status", "Status")
                         .WithMany("Publishers")
                         .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Core.Entities.PublisherTitle", b =>
-                {
-                    b.HasOne("Core.Entities.Publisher", "Publisher")
-                        .WithMany("PublisherTitles")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.Title", "Title")
-                        .WithMany("PublisherTitles")
-                        .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

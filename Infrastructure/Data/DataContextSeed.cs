@@ -17,40 +17,29 @@ namespace Infrastructure.Data
             {
                 if (!context.Groups.Any())
                 {
-                    var groupData = File.ReadAllText("../Infrastructure/Data/SeedData/GroupSeed.json");
+                    var groupData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/GroupSeed.json");
                     var groups = JsonConvert.DeserializeObject<List<Group>>(groupData);
 
                     foreach (var group in groups) await context.Groups.AddAsync(@group);
 
                     await context.SaveChangesAsync();
                 }
-
-                if (!context.Statuses.Any())
+                
+                if (!context.Appointed.Any())
                 {
-                    var statusData = File.ReadAllText("../Infrastructure/Data/SeedData/StatusSeed.json");
-
-                    var statuses = JsonConvert.DeserializeObject<List<Status>>(statusData);
-
-                    foreach (var status in statuses) await context.Statuses.AddAsync(status);
-
-                    await context.SaveChangesAsync();
-                }
-
-                if (!context.Titles.Any())
-                {
-                    var titlesData = File.ReadAllText("../Infrastructure/Data/SeedData/TitleSeed.json");
-
-                    var titles = JsonConvert.DeserializeObject<List<Title>>(titlesData);
-
-                    foreach (var title in titles) await context.Titles.AddAsync(title);
-
+                    var titlesData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/AppointedSeed.json");
+                
+                    var titles = JsonConvert.DeserializeObject<List<Appointed>>(titlesData);
+                
+                    foreach (var title in titles) await context.Appointed.AddAsync(title);
+                
                     await context.SaveChangesAsync();
                 }
 
 
                 if (!context.Publishers.Any())
                 {
-                    var publishersData = File.ReadAllText("../Infrastructure/Data/SeedData/PublisherSeed.json");
+                    var publishersData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/PublisherSeed.json");
 
                     var publishers = JsonConvert.DeserializeObject<List<Publisher>>(publishersData);
 
@@ -59,16 +48,16 @@ namespace Infrastructure.Data
                     await context.SaveChangesAsync();
                 }
 
-                if (!context.PublisherTitles.Any())
+                if (!context.AppointedPublishers.Any())
                 {
                     var publisherTitleData =
-                        File.ReadAllText("../Infrastructure/Data/SeedData/PublisherTitleSeed.json");
-
-                    var publishersTitles = JsonConvert.DeserializeObject<List<PublisherTitle>>(publisherTitleData);
-
+                        await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/AppointedPublisherSeed.json");
+                
+                    var publishersTitles = JsonConvert.DeserializeObject<List<AppointedPublisher>>(publisherTitleData);
+                
                     foreach (var publisherTitle in publishersTitles)
-                        await context.PublisherTitles.AddAsync(publisherTitle);
-
+                        await context.AppointedPublishers.AddAsync(publisherTitle);
+                
                     await context.SaveChangesAsync();
                 }
             }

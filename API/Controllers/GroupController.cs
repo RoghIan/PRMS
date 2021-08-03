@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTO;
 using API.Errors;
@@ -9,7 +7,6 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -40,7 +37,7 @@ namespace API.Controllers
                 groupSpecParams.PageSize, totalItems, data));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<PropertyDto>> Group(int id)
         {
             var spec = new GroupWithPublishersSpecification(id);

@@ -1,9 +1,11 @@
-﻿using Core.Entities;
+﻿using System;
+using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Data
@@ -30,6 +32,16 @@ namespace Infrastructure.Data
         public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
+        }
+
+        public async Task<T> BasicGetEntityWithSpec(Expression<Func<T, bool>> spec)
+        {
+            return await _context.Set<T>().Where(spec).FirstOrDefaultAsync();
+        }
+
+        public async Task<IReadOnlyList<T>> BasicListAsync(Expression<Func<T, bool>> spec)
+        {
+            return await _context.Set<T>().Where(spec).ToListAsync();
         }
 
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)

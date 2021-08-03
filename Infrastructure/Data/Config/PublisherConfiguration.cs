@@ -8,10 +8,6 @@ namespace Infrastructure.Data.Config
     {
         public void Configure(EntityTypeBuilder<Publisher> builder)
         {
-            builder.HasOne(au => au.Status)
-                .WithMany(au => au.Publishers)
-                .HasForeignKey(au => au.StatusId);
-
             builder.HasOne(p => p.Group)
                 .WithMany(au => au.Publishers)
                 .HasForeignKey(au => au.GroupId);

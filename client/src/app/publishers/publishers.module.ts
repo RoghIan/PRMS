@@ -10,8 +10,12 @@ import { PublishersRoutingModule } from './publishers-routing.module';
   declarations: [
     PublishersComponent,
     PublisherItemComponent,
-    PublisherDetailsComponent,
+    PublisherDetailsComponent
   ],
-  imports: [CommonModule, SharedModule, PublishersRoutingModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    PublishersRoutingModule,
+  ]
 })
 export class PublishersModule {}

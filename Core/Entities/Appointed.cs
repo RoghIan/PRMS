@@ -2,10 +2,10 @@
 
 namespace Core.Entities
 {
-    public class Status : BaseEntity
+    public class Appointed : BaseEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public IEnumerable<Publisher> Publishers { get; set; }
+        public IEnumerable<AppointedPublisher> AppointedPublishers { get; set; }
     }
 }

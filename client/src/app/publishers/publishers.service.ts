@@ -5,7 +5,8 @@ import { IDictionary } from '../shared/models/dictionary';
 import { IPagination } from '../shared/models/pagination';
 import { map } from 'rxjs/operators';
 import { PublisherParams } from '../shared/models/publisherParams';
-import { IPublisher } from '../shared/models/publisher';
+import { IPostPublisher, IPublisher } from '../shared/models/publisher';
+import { IPublisherReport } from '../shared/models/report';
 
 @Injectable({
   providedIn: 'root',
@@ -53,11 +54,21 @@ export class PublishersService {
     return this.http.get<IDictionary[]>(this.baseUrl + 'publisher/groups');
   }
 
-  getTitles(): Observable<IDictionary[]> {
-    return this.http.get<IDictionary[]>(this.baseUrl + 'publisher/titles');
-  }
+  // getTitles(): Observable<IDictionary[]> {
+  //   return this.http.get<IDictionary[]>(this.baseUrl + 'publisher/titles');
+  // }
 
   getStatuses(): Observable<IDictionary[]> {
     return this.http.get<IDictionary[]>(this.baseUrl + 'publisher/statuses');
   }
+
+  postPublisherReport(report: IPublisherReport) {
+    return this.http.post<IPublisherReport>(this.baseUrl + 'report', report);
+  }
+
+  putPublisher(publisher: IPostPublisher) {
+
+    return this.http.put<IPublisherReport>(this.baseUrl + 'publisher/' + publisher.id, publisher);
+  }
+
 }

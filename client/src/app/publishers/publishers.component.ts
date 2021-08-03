@@ -32,7 +32,7 @@ export class PublishersComponent implements OnInit {
     this.getPublishers();
     this.getGroups();
     this.getStatuses();
-    this.getTitles();
+    //this.getTitles();
   }
 
   getPublishers(): void {
@@ -69,16 +69,16 @@ export class PublishersComponent implements OnInit {
     );
   }
 
-  getTitles(): void {
-    this.adminService.getTitles().subscribe(
-      (response) => {
-        this.titles = [{ id: 0, name: 'All' }, ...response];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+  // getTitles(): void {
+  //   this.adminService.getTitles().subscribe(
+  //     (response) => {
+  //       this.titles = [{ id: 0, name: 'All' }, ...response];
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
 
   onGroupSelected(groupId: number): void {
     this.publisherParams.groupId = groupId;

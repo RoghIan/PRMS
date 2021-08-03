@@ -1,107 +1,107 @@
 [
   {
     "PublisherId": 1,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 1,
-    "TitleId": 3
+    "AppointedId": 3
   },
   {
     "PublisherId": 1,
-    "TitleId": 4
+    "AppointedId": 4
   },
   {
     "PublisherId": 1,
-    "TitleId": 6
+    "AppointedId": 6
   },
   {
     "PublisherId": 2,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 2,
-    "TitleId": 4
+    "AppointedId": 4
   },
   {
     "PublisherId": 3,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 3,
-    "TitleId": 3
+    "AppointedId": 3
   },
   {
     "PublisherId": 3,
-    "TitleId": 5
+    "AppointedId": 5
   },
   {
     "PublisherId": 4,
-    "TitleId": 5
+    "AppointedId": 5
   },
   {
     "PublisherId": 4,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 5,
-    "TitleId": 5
+    "AppointedId": 5
   },
   {
     "PublisherId": 5,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 6,
-    "TitleId": 5
+    "AppointedId": 5
   },
   {
     "PublisherId": 6,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 6,
-    "TitleId": 3
+    "AppointedId": 3
   },
   {
     "PublisherId": 7,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 7,
-    "TitleId": 4
+    "AppointedId": 4
   },
   {
     "PublisherId": 7,
-    "TitleId": 3
+    "AppointedId": 3
   },
   {
     "PublisherId": 8,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 8,
-    "TitleId": 4
+    "AppointedId": 4
   },
   {
     "PublisherId": 9,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 9,
-    "TitleId": 4
+    "AppointedId": 4
   },
   {
     "PublisherId": 9,
-    "TitleId": 3
+    "AppointedId": 3
   },
   {
     "PublisherId": 10,
-    "TitleId": 2
+    "AppointedId": 2
   },
   {
     "PublisherId": 10,
-    "TitleId": 4
+    "AppointedId": 4
   }
 ]
 

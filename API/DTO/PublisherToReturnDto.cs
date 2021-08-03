@@ -15,8 +15,8 @@ namespace API.DTO
         public DateTime BirthDate { get; set; }
         public string PhotoUrl { get; set; }
         public string Gender { get; set; }
-        [JsonIgnore]
-        public IEnumerable<PropertyDto> PublisherTitles { get; set; }
+        //[JsonIgnore]
+        // public IEnumerable<PropertyDto> PublisherTitles { get; set; }
         public PropertyDto Status { get; set; }
         public string Group { get; set; }
     }

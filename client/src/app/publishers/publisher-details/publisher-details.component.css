@@ -1,0 +1,9 @@
+.width-3 {
+    width: 185px;
+    display: inline-block;
+    margin: 10px;
+}
+
+.display-b {
+    display: block;
+}

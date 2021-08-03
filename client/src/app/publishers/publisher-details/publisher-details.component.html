@@ -1,15 +1,103 @@
 <div class="container mt-5">
   <div class="row" *ngIf="publisher">
     <div class="col-6">
-      <img
-        src="/assets/images/no-picture.jpg"
-        alt="{{ publisher.firstName }}"
-        class="img-fluid w-100"
-      />
+      <img src="/assets/images/no-picture.jpg" alt="{{ publisher.firstName }}" class="img-fluid w-100" />
     </div>
     <div class="col-6">
-      <h3>{{ publisher.firstName }}</h3>
-      <p>{{ publisher.lastName }}</p>
+      <h3>{{ publisher.firstName }} {{ publisher.lastName }}</h3>
+      <form (ngSubmit)="onSubmitPublisher()" [formGroup]="publisherForm" *ngIf="this.publisher">
+        <div class="detail">
+          <label>
+            First Name
+            <input placeholder="First Name" formControlName="firstName" class="form-control width-3">
+          </label>
+          <label>
+            Last Name
+            <input type="text" placeholder="Last Name" formControlName="lastName" class="form-control width-3">
+          </label>
+          <label>
+            Birth Date
+            <input placeholder="Birth Date" formControlName="birthDate" class="form-control width-3" bsDatepicker>
+          </label>
+          <label>
+            Baptism Date
+            <input placeholder="Baptism Date" formControlName="baptismDate" class="form-control width-3" bsDatepicker>
+          </label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gender" formControlName="gender" id="male">
+            <label class="form-check-label" for="male">
+              Male
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gender" formControlName="gender" id="female">
+            <label class="form-check-label" for="female">
+              Female
+            </label>
+          </div>
+
+          <label class="display-b">
+            Group
+            <ng-multiselect-dropdown [placeholder]="'select group'" [settings]="groupDropdownSettings"
+              [data]="groupDropdownList" [(ngModel)]="selectedGroup" [ngModelOptions]="{standalone: true}"
+              (onSelect)="onGroupSelect($event)">
+            </ng-multiselect-dropdown>
+          </label>
+
+          <label class="display-b">
+            Title
+            <ng-multiselect-dropdown [placeholder]="'select titles'" [settings]="titleDropdownSettings"
+              [data]="titleDropdownList" [(ngModel)]="selectedTitles" [ngModelOptions]="{standalone: true}"
+              (onSelect)="onTitleSelect($event)">
+            </ng-multiselect-dropdown>
+          </label>
+
+
+        </div>
+        <button type="submit" class="btn btn-outline-success my-2">
+          Save
+        </button>
+      </form>
+
+
+
     </div>
+
+    <form (ngSubmit)="onSubmitReport()" [formGroup]="reportForm">
+      <div class="report">
+        <label>
+          Report Date
+          <input placeholder="Report Date" formControlName="reportDate" class="form-control width-3" bsDatepicker>
+        </label>
+        <label>
+          Placements
+          <input type="number" placeholder="Placements" formControlName="placements" class="form-control width-3">
+        </label>
+        <label>
+          Video Showings
+          <input type="number" placeholder="Video Showings" formControlName="videoShowings"
+            class="form-control width-3">
+        </label>
+        <label>
+          Hours
+          <input type="number" placeholder="Hours" formControlName="hours" class="form-control width-3">
+        </label>
+        <label>
+          Return Visits
+          <input type="number" placeholder="Return Visits" formControlName="returnVisits" class="form-control width-3">
+        </label>
+        <label>
+          Bible Studies
+          <input type="number" placeholder="Bible Studies" formControlName="bibleStudies" class="form-control width-3">
+        </label>
+        <label>
+          is Auxiliary
+          <input type="checkbox" placeholder="isAuxiliary" formControlName="isAuxiliary" class="form-control">
+        </label>
+      </div>
+      <button type="submit" class="btn btn-outline-success my-2">
+        Save
+      </button>
+    </form>
   </div>
 </div>
